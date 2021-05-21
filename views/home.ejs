@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>로그인 예제</title>
+</head>
+<body>
+	<headder>
+		<h1>홈</h1>
+	</headder>
+	<nav>
+		<% if(locals.user){ %>
+		    <a href="/logout">로그아웃</a>
+		<% } else { %>
+		    <a href="/login">로그인</a>
+		    <a href="/join">회원가입</a>
+		<% } %>
+    </nav>
+    <main>
+        <% if(locals.user) { %>
+            <%=user.nickname%>님 환영합니다~~ 뿌뿌🎈🎈
+        <% } %>   
+    </main>
+	<form id="fileForm">
+		<input type="file" name="uploadFile"/>
+		<button id="uploadBtn">파일업로드</button>
+	</form>
+	<script>
+		const fileForm = document.getElementById("fileForm");
+		fileForm.addEventListener("submit", (e)=> {
+			e.preventDefault();
+			const formData = new FormData();
+			const file = document.querySelector("input[name='uploadFile']");
+			formData.append("uploadFile", file.files[0]);
+			var request = new XMLHttpRequest();
+			request.open('POST', './file/IMAGE');
+			request.onreadystatechange = function(){
+				console.log(request.responseText);
+			}
+			request.send(formData);
+		});
+	</script>
+</body>
+</html>
