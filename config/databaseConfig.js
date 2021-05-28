@@ -22,4 +22,4 @@ connection.connect(() => {
   log.info("✅ DB Connected");
 });
 
-module.exports = connection.promise();
+module.exports = connection;
