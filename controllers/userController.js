@@ -14,21 +14,6 @@ const log = require("../util/logger");
 const joinUser = (req, res) => {
   const { id, password, nickname } = req.body;
 
-  // 유효성 검증
-  // TODO express validation 적용
-  if (
-    !id ||
-    !password ||
-    !nickname ||
-    id.trim().length <= 0 ||
-    password.trim().length <= 0 ||
-    nickname.trim().length <= 0
-  ) {
-    return res.render("join", {
-      flashMessage: "회원정보를 정확히 입력해주세요.",
-    });
-  }
-
   //💾 유저정보를 데이터베이스에 저장
   connection.query(
     QUERY.USER.INSERT,
@@ -55,18 +40,6 @@ const joinUser = (req, res) => {
  */
 const loginUser = (req, res) => {
   const { id, password } = req.body;
-
-  // 유효성 검증
-  if (
-    !id ||
-    !password ||
-    id.trim().length <= 0 ||
-    password.trim().length <= 0
-  ) {
-    return res.render("login", {
-      flashMessage: "로그인정보를 정확히 입력해주세요.",
-    });
-  }
 
   // 로그인 수행
   connection.query(QUERY.USER.SELECT_BY_ID, [id], (err, rows) => {
