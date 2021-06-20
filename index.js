@@ -38,3 +38,5 @@ app.use("/file", fileRouter);
 app.listen(PORT, () => {
   log.info(`✅ Server Listen: http://localhost:${PORT}`);
 });
+
+module.exports = app;
